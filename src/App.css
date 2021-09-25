@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+table {
+  margin: auto;
+  width: 30%;
+}
+
+tr {
+  width: 10%;
+}
+
+h2 {
+  color: white;
+  background-color: black;
+  padding: 50px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
