@@ -5,7 +5,7 @@ function Todos() {
     const [todos, setTodos] = useState([]);
 
     const addTodo = () => {
-        setTodos([todo, ...todos]);
+        setTodos([...todos, todo]);
     }
 
     const inputChanged = (event) => {
@@ -21,8 +21,9 @@ function Todos() {
                 <button onClick={addTodo}>Add</button>
                 <table>
                     <tbody>
-                        <tr><th> Date </th>
+                        <tr>
                             <th> Description </th>
+                            <th> Date </th>
                         </tr>
                         {
                             todos.map((todo, index) =>
