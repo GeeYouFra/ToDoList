@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import TodoTable from './TodoTable';
 
 function Todos() {
     const [todo, setTodo] = useState({ desc: '', date: '' });
@@ -12,7 +13,7 @@ function Todos() {
         setTodo({ ...todo, [event.target.name]: event.target.value })
     }
 
-    const deleteToDo = (row) => {
+    const deleteTodo = (row) => {
         console.log('Row ' + row + ' deleted');
         setTodos(todos.filter((todo, index) => index !== row));
     }
@@ -25,22 +26,7 @@ function Todos() {
                 <label> Description: <input name="desc" value={todo.desc} onChange={inputChanged} /> </label>
                 <label> Date: <input name="date" value={todo.date} onChange={inputChanged} /> </label>
                 <button onClick={addTodo}>Add</button>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th> Description </th>
-                            <th> Date </th>
-                        </tr>
-                        {
-                            todos.map((todo, index) =>
-                                <tr key={index}>
-                                    <td>{todo.desc}</td>
-                                    <td>{todo.date}</td>
-                                    <td><button onClick={() => deleteToDo(index)}>Delete</button></td>
-                                </tr>)
-                        }
-                    </tbody>
-                </table>
+                <TodoTable todos={todos} deleteTodo={deleteTodo}/>
             </div>
 
         </div>
