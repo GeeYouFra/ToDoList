@@ -16,26 +16,19 @@ function App() {
   }
   return (
     <div className="App">
-      <AppBar position="static">
-
-        <Typography variant="h5">
-          My Todos
-        </Typography>
-
-        <Tabs value={value} onChange={handleChange} sx={{
-          "&& .Mui-selected": {
-            color: "#d1d1d1"
-          }
-        }}>
+      <AppBar position="static" color="transparent">
+       
+          <Typography variant="h5">
+            My Todos
+          </Typography>
+        
+        <Tabs value={value} onChange={handleChange} >
           <Tab label="HOME" />
           <Tab label="TODO LIST" />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>Hey World</TabPanel>
       <TabPanel value={value} index={1}> <Todos /> </TabPanel>
-
-
-
     </div>
   );
 }

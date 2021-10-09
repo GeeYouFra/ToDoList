@@ -1,12 +1,13 @@
 import React, { useState, useRef } from 'react';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
+import { AgGridReact } from 'ag-grid-react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
-
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -24,7 +25,7 @@ function Todos() {
     }
 
     const inputChanged = (event) => {
-        setTodo({ ...todo, [event.target.name]: event.target.value })
+        setTodo({ ...todo, [event.target.name]: event.target.value });
     }
 
     const deleteTodo = () => {
@@ -43,20 +44,26 @@ function Todos() {
         }
     ];
 
-  /* const handleDateChange = (date) => {
-       setTodo({...todo, date: date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear() })
-   }*/
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+        setTodo({ ...todo, date: date.toISOString() });
+    }
 
     return (
         <div>
-            <h2> Simple ToDo List </h2>
-            <p> Add todo: </p>
             <div style={{ marginTop: 20, marginBottom: 20 }}>
                 <Stack direction="row" spacing={2} justifyContent="center">
                     <TextField size="small" label="Description" name="desc" value={todo.desc} onChange={inputChanged} />
-               
-                    <TextField size="small"  label="Date" name="date" value={todo.date} onChange={inputChanged} />
-              
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                        autoOk
+                        clearable
+                        value={selectedDate}
+                        onChange={date => handleDateChange(date)}
+                        format="MM/dd/yyyy" />
+                    </MuiPickersUtilsProvider>
                     <TextField size="small" label="Priority" name="priority" value={todo.priority} onChange={inputChanged} />
                     <Button
                         variant="outlined"
